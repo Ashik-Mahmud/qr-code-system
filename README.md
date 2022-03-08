@@ -23,7 +23,7 @@ This is simple QR Code Scanner with Generator. Here You will create a QR Code & 
 - also can copy QR code by clicking the button
 
 
-# Live link - 
+# Live link - <https://qr-code-creator-scanner.netlify.app/>
 # Demo preview for this project
 ![imageScreenshot](./preview.png)
 
