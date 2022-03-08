@@ -54,19 +54,15 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>Serial no</th>
+                                            <th>Sl</th>
                                             <th>Code</th>
                                             <th>Date & time</th>
+                                            <th>Copy</th>
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody id="qr-code-body">
-                                        <tr>
-                                            <td>1</td>
-                                            <td>34232343</td>
-                                            <td>2 Jan, 2022 1:22 PM</td>
-                                            <td><button class="btn btn-danger btn-sm">&times;</button></td>
-                                        </tr>
+                                       
                                     </tbody>
                                 </table>
                             </div>
@@ -135,7 +131,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" onclick="saveIntoLocalStorage()" data-bs-dismiss="modal" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>

@@ -64,8 +64,6 @@
  const setResult = (result) => {
      if (result) {
          document.getElementById("error").style.display = 'none';
-         let nowDate = new Date();
-         let dateAndTime = nowDate.toDateString() + ' ' + nowDate.toLocaleTimeString();
          document.getElementById("QrDataText").innerText = result.data;
      }
      actionCamera(false);
@@ -75,19 +73,76 @@
  /* STEP: 3.2 copy to Clipboard option by clicking copy button  */
  const copyData = (target) => {
      let data = document.getElementById("QrDataText").innerText;
-     if (window.navigator.clipboard.writeText(data)) target.innerText = 'Copied Data';
+     if (window.navigator.clipboard.writeText(data)) {
+         target.innerText = 'Copied Data'
+     };
      setTimeout(() => target.innerText = 'Copy', 4000)
  }
 
 
+ /* STEP: 4 add data from localStorage if user give permission */
+
+ const saveIntoLocalStorage = () => {
+     let qrCode = getCode();
+     let data = document.getElementById("QrDataText").innerText;
+     let nowDate = new Date();
+     let dateAndTime = nowDate.toDateString() + ' ' + nowDate.toLocaleTimeString();
+     if (qrCode[qrCode.length - 1]?.data === data) return alert("value is already has");
+     qrCode.push({
+         data,
+         dateAndTime
+     })
+     localStorage.setItem('qr-codes', JSON.stringify(qrCode));
+     document.getElementById("qr-code-body").innerHTML = ''
+     displayDataFromLocalStorage()
+ }
+ const getCode = () => {
+     const codes = localStorage.getItem('qr-codes');
+     let codeArr;
+     codes ? codeArr = JSON.parse(codes) : codeArr = [];
+     return codeArr;
+ }
 
 
+ /* STEP: 5. Display all of data from localStorage */
+ const displayDataFromLocalStorage = () => {
+     let qrArr = getCode();
+     qrArr?.forEach(({
+         data,
+         dateAndTime
+     }, index) => {
+         const tr = document.createElement("tr");
+         tr.innerHTML = `<td>${index === 0 ? index+=1 : index+=1}</td>
+                        <td title="${data}">
+                            <span >${data.length > 30 ? data.substr(0, 30) : data }</span>
+                        </td>
+                        <td title="${dateAndTime}">${dateAndTime.length > 20 ? dateAndTime.substr(0, 20)+'..' : dateAndTime}</td>
+                        <td><button class="btn btn-info btn-sm text-white" data="${data}" onclick="copyItem(this)">⎘</button></td>
+                        <td><button class="btn btn-danger btn-sm" onclick="deleteItem(${index - 1})">&times;</button></td>`;
+         document.getElementById("qr-code-body").appendChild(tr);
+     })
+
+ }
+ /* STEP: 5.1. copy qr data by clicking the button */
+ const copyItem = (target) => {
+     let data = target.getAttribute('data');
+     target.classList.add('copy')
+     window.navigator.clipboard.writeText(data);
+     setTimeout(() => target.classList.remove('copy'), 1500)
+ }
+ displayDataFromLocalStorage();
 
 
-
-
-
-
+ /* STEP: 5.1 delete item from localStorage  */
+ const deleteItem = (id) => {
+     if (confirm("Do You want to delete it?")) {
+         let qrArr = getCode();
+         qrArr.splice(id, 1)
+         localStorage.setItem('qr-codes', JSON.stringify(qrArr));
+         document.getElementById("qr-code-body").innerHTML = ''
+         displayDataFromLocalStorage();
+     }
+ }
 
  const actionCamera = (isAction) => {
      if (isAction) {
