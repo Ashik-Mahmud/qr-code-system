@@ -1,12 +1,16 @@
  /* 
  TODO:
- -
- -
- -
- -
- -
- -
-  
+ - select all important elements
+ - create a function for create QR CODE Image
+ -- create a function for download image 
+ - Create a function for open scanner camera 
+ --set result from function
+ --copy to Clipboard option by clicking copy button
+ - add data from localStorage if user give permission
+ - Display all of data from localStorage 
+ -- copy qr data by clicking the button
+ -- delete item from localStorage
+ -- extra for omit duplicate code
  */
 
  /* STEP: 1. select all important elements */
@@ -133,7 +137,7 @@
  displayDataFromLocalStorage();
 
 
- /* STEP: 5.1 delete item from localStorage  */
+ /* STEP: 5.2 delete item from localStorage  */
  const deleteItem = (id) => {
      if (confirm("Do You want to delete it?")) {
          let qrArr = getCode();
@@ -144,6 +148,7 @@
      }
  }
 
+ /* STEP: extra for omit duplicate code */
  const actionCamera = (isAction) => {
      if (isAction) {
          scanner.start();
