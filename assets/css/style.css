@@ -26,3 +26,15 @@ body{
     height: 300px;
     border: 10px solid #333;
 }
+
+#qr-code-image img{
+    margin: auto;
+}
+#stop-camera-btn{
+    display: none;
+}
+#permissionModalBtn{
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+}
