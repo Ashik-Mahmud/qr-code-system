@@ -1,0 +1,1 @@
+# QR Code System using Vanilla JavaScript.
