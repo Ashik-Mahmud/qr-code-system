@@ -111,6 +111,9 @@
  /* STEP: 5. Display all of data from localStorage */
  const displayDataFromLocalStorage = () => {
      let qrArr = getCode();
+     if(qrArr.length === 0){
+         return document.getElementById("qr-code-body").innerHTML = '<span class="d-block py-4">No data found.</span>'
+     }
      qrArr?.forEach(({
          data,
          dateAndTime
